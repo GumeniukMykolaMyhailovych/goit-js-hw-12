@@ -5,10 +5,13 @@ import FullReload from 'vite-plugin-full-reload';
 import SortCss from 'postcss-sort-media-queries';
 
 export default defineConfig(({ command }) => ({
-
   base: command === 'serve' ? '/' : '/goit-js-hw-12/',
 
   root: 'src',
+
+  define: {
+    global: 'window', // 🔥 ОЦЕ КЛЮЧОВЕ
+  },
 
   build: {
     outDir: '../dist',

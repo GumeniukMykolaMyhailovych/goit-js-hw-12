@@ -23,11 +23,17 @@ let totalHits = 0;
 form.addEventListener('submit', onSearch);
 loadMoreBtn.addEventListener('click', onLoadMore);
 
+
+
 async function onSearch(event) {
   event.preventDefault();
 
+  console.log('🔥 onSearch fired');
+
   query = event.target.elements['search-text'].value.trim();
   page = 1;
+
+
 
   if (!query) {
     iziToast.error({
@@ -42,7 +48,11 @@ async function onSearch(event) {
   showLoader();
 
   try {
+    console.log('📡 calling Pixabay...');
     const data = await getImagesByQuery(query, page);
+
+    console.log('✅ DATA FROM PIXABAY:', data);
+
     totalHits = data.totalHits;
 
     if (data.hits.length === 0) {
@@ -65,7 +75,8 @@ async function onSearch(event) {
     } else {
       showLoadMoreButton();
     }
-  } catch {
+  } catch (error) {
+    console.error('❌ CATCH ERROR:', error);
     iziToast.error({
       message: 'Something went wrong. Please try again later.',
       position: 'topRight',
@@ -75,6 +86,9 @@ async function onSearch(event) {
   }
 }
 
+
+
+
 async function onLoadMore() {
   page += 1;
   showLoader();
@@ -82,6 +96,8 @@ async function onLoadMore() {
   try {
     const data = await getImagesByQuery(query, page);
     createGallery(data.hits);
+
+    console.log('DATA FROM PIXABAY:', data);
 
     smoothScroll();
 
