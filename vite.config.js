@@ -5,7 +5,7 @@ import FullReload from 'vite-plugin-full-reload';
 import SortCss from 'postcss-sort-media-queries';
 
 export default defineConfig(({ command }) => ({
-  base: '/goit-js-hw-12/',
+  base: './',
 
   root: 'src',
 
